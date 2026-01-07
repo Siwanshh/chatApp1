@@ -50,7 +50,55 @@
 .topic-item:hover a{
     color:white;
 }
+
+
+@media (max-width:1024px){
+    .topics-container{
+        padding:16px;
+    }
+
+    .topics-container h1{
+        font-size:18px;
+    }
+
+    .topic-item{
+        padding:8px 12px;
+    }
+
+    .topic-item a{
+        font-size:14px;
+    }
+}
+
+
+@media (max-width:768px){
+    .topics-container{
+        padding:14px;
+    }
+
+    .topic-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:4px;
+    }
+}
+
+
+@media (max-width:480px){
+    .topics-container{
+        padding:12px;
+    }
+
+    .topics-container h1{
+        font-size:16px;
+    }
+
+    .topic-item a{
+        font-size:13px;
+    }
+}
 </style>
+
 
 <div class="topics-container">
     <h1>Browse Topic</h1>

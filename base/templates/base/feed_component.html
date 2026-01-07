@@ -1,0 +1,135 @@
+<style>
+.feed-wrapper{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.room-card{
+    background:#ffffff;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:14px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.08);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(0,0,0,0.15);
+}
+
+.room-actions{
+    display:flex;
+    gap:10px;
+    margin-bottom:12px;
+    background:#f0fdf4;
+    padding:8px 12px;
+    border-radius:10px;
+    width:fit-content;
+}
+
+.room-actions a{
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    color:#16a34a;
+    padding:6px 12px;
+    border-radius:8px;
+    transition:all 0.2s ease;
+}
+
+.room-actions a:hover{
+    background:#22c55e;
+    color:white;
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(34,197,94,0.3);
+}
+
+.room-actions a[href*="/delete/"]{
+    color:#dc2626;
+}
+
+.room-actions a[href*="/delete/"]:hover{
+    background:#ef4444;
+    color:white;
+    box-shadow:0 4px 12px rgba(239,68,68,0.3);
+}
+
+.room-host-wrapper{
+    display:inline-block;
+    background:#d1fae5;
+    padding:6px 12px;
+    border-radius:12px;
+    margin-bottom:10px;
+    transition:all 0.2s ease;
+}
+
+.room-host-wrapper:hover{
+    background:#22c55e;
+    color:white;
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(34,197,94,0.25);
+}
+
+.room-host{
+    font-size:16px;
+    font-weight:700;
+    color:#065f46;
+    text-decoration:none;
+}
+
+.room-title a{
+    font-size:22px;
+    font-weight:700;
+    color:#0f172a;
+    transition:color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.room-title a:hover{
+    color:#065f46;
+    text-decoration:underline;
+}
+
+.room-card h4{
+    color:#475569;
+    margin-top:8px;
+}
+
+.room-meta{
+    color:#6b7280;
+    font-size:14px;
+    margin-top:10px;
+}
+</style>
+
+<div class="feed-wrapper">
+{% for person in room %}
+    <div class="room-card">
+        {% if request.user == person.host %}
+        <div class="room-actions">
+            <a href="/update/{{person.id}}">Edit</a>
+            <a href="/delete/{{person.id}}">Delete</a>
+        </div>
+        {% endif %}
+
+        <div class="room-host-wrapper">
+            <a href="{% url 'user-profile' person.host.id %}" class="room-host">
+                @{{person.host.username}}
+            </a>
+        </div>
+
+        <h1 class="room-title">
+            {{person.id}}
+            <a href="/start/{{person.id}}">{{person.name}}</a>
+        </h1>
+
+        <h4>{{person.description}}</h4>
+
+        <div class="room-meta">
+            <div>Updated: {{person.updated}}</div>
+            <div>Topic: {{person.topic.name}}</div>
+        </div>
+    </div>
+{% endfor %}
+</div>

@@ -1,0 +1,66 @@
+<style>
+.topics-container{
+    background:#ffffff;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.08);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.topics-container h1{
+    font-size:20px;
+    font-weight:700;
+    color:#065f46;
+    margin-bottom:12px;
+}
+
+.topics-container hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+    margin-bottom:12px;
+}
+
+.topic-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#d1fae5;
+    padding:10px 14px;
+    border-radius:12px;
+    transition:all 0.2s ease;
+}
+
+.topic-item:hover{
+    background:#22c55e;
+    color:white;
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(34,197,94,0.25);
+}
+
+.topic-item a{
+    text-decoration:none;
+    color:#065f46;
+    font-weight:600;
+    transition:color 0.2s ease;
+    flex-grow:1;
+}
+
+.topic-item:hover a{
+    color:white;
+}
+</style>
+
+<div class="topics-container">
+    <h1>Browse Topic</h1>
+    <hr>
+    <div class="topic-item">
+        <a href="{% url 'home' %}">All</a>
+    </div>
+    {% for tpc in topic %}
+    <div class="topic-item">
+        <a href="{% url 'home' %}?q={{tpc.name}}">{{tpc.name}} {{tpc.num_rooms}}</a>
+    </div>
+    {% endfor %}
+</div>

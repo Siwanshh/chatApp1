@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    {% block hd %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}">
+    <title>{% block title %}Main {% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+.messages{
+    list-style:none;
+    max-width:900px;
+    margin:20px auto;
+}
+
+.success{ color:#16a34a; font-weight:600; }
+.error{ color:#dc2626; font-weight:600; }
+
+a{
+    text-decoration:none;
+    color:#2563eb;
+    font-weight:500;
+}
+
+hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+    margin:15px 0;
+}
+ @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 15px;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .profile img {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+            }
+
+            /* Example for main grid layout */
+            .main-container {
+                display: block; /* instead of grid */
+                gap: 15px;
+            }
+
+            .profile-card {
+                width: 100%;
+            }
+        }
+</style>
+
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    {% include 'nv.html' %}
+    <hr>
+    <div class="page-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

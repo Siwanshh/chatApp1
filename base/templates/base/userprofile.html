@@ -1,0 +1,100 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+/* ---------- MAIN CONTAINER ---------- */
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* ---------- PROFILE HEADER ---------- */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2563eb; /* nice blue border */
+}
+
+.profile-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #065f46;
+}
+
+/* ---------- PROFILE CARDS ---------- */
+.profile-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ---------- MOBILE RESPONSIVENESS ---------- */
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-header img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 8px;
+        border: 2px solid #2563eb;
+    }
+
+    .profile-header h2 {
+        font-size: 22px;
+    }
+
+    .profile-card {
+        width: 100%;
+    }
+}
+</style>
+
+<!-- ---------- PROFILE HEADER ---------- -->
+<div class="profile-header">
+    {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s Avatar">
+    {% else %}
+        <img src="{% static 'avatars/default.png' %}" alt="Default Avatar">
+    {% endif %}
+    <h2>{{ user.username }}</h2>
+</div>
+
+<!-- ---------- MAIN GRID ---------- -->
+<div class="main-container">
+
+    <div class="profile-card">
+        {% include 'base/topics_component.html' %}
+    </div>
+
+    <div class="profile-card">
+        {% include 'base/feed_component.html' %}
+    </div>
+
+    <div class="profile-card">
+        {% include 'base/activity_comp.html' %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete</title>
+
+    <style>
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .delete-wrapper{
+        max-width:400px;
+        margin:120px auto;
+        background:#020617;
+        padding:30px;
+        border-radius:12px;
+        text-align:center;
+        box-shadow:0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .delete-wrapper input{
+        padding:10px 16px;
+        margin:8px;
+        border-radius:8px;
+        border:none;
+        font-weight:600;
+        cursor:pointer;
+    }
+
+    .delete-wrapper input[value="Confirm"]{
+        background:#ef4444;
+        color:#020617;
+    }
+
+    .delete-wrapper input[value="Back"]{
+        background:#38bdf8;
+        color:#020617;
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="delete-wrapper">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{obj}} </p>
+        <input type="submit" value="Confirm" name="btn">
+        <input type='submit' value="Back" name="btn">   
+    </form>
+</div>
+
+</body>
+</html>

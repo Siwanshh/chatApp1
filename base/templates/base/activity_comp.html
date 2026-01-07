@@ -1,0 +1,107 @@
+<style>
+.activity-container{
+    background:#ffffff;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.08);
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.activity-container p:first-child{
+    font-weight:700;
+    font-size:18px;
+    color:#065f46;
+}
+
+.activity-container hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+    margin-bottom:12px;
+}
+
+.activity-item{
+    background:#f0fdf4;
+    padding:12px 16px;
+    border-radius:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transition:all 0.2s ease;
+}
+
+.activity-item:hover{
+    background:#22c55e;
+    color:white;
+    transform:translateY(-1px);
+    box-shadow:0 6px 18px rgba(34,197,94,0.25);
+}
+
+.activity-user a{
+    text-decoration:none;
+    font-weight:600;
+    color:#065f46;
+    transition:color 0.2s ease;
+}
+
+.activity-item:hover .activity-user a{
+    color:white;
+}
+
+.activity-date{
+    font-size:13px;
+    color:#6b7280;
+    margin-left:6px;
+}
+
+.activity-body{
+    margin-top:8px;
+    padding:12px;
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.activity-body p{
+    margin:0;
+    color:#0f172a;
+}
+
+.activity-delete{
+    display:inline-block;
+    margin-top:6px;
+    padding:6px 10px;
+    border-radius:8px;
+    background:#ef4444;
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+    font-size:13px;
+    transition:all 0.2s ease;
+}
+
+.activity-delete:hover{
+    background:#b91c1c;
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(255,0,0,0.3);
+}
+</style>
+
+<div class="activity-container">
+<p>Recent Activities:</p>
+<hr>
+{% for msg in msgs %}
+<div class="activity-item">
+    <div class="activity-user">
+        <a href="{% url 'user-profile' msg.user.id %}">@{{msg.user}}</a>
+        <span class="activity-date">{{msg.created|timesince}} ago</span>
+    </div>
+    {% if request.user == msg.user %}
+        <a href="/delete/{{msg.id}}" class="activity-delete">Delete</a>
+    {% endif %}
+    <div class="activity-body">
+        <p>replied to the {{msg.room}}</p>
+        <p>{{msg.body}}</p>
+    </div>
+</div>
+{% endfor %}
+</div>

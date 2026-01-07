@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Form</title>
+</head>
+<body>
+    <form action="/update/" method="POST">
+        {% csrf_token %}
+        <label form="host">Host:</label>
+        <select name="host">
+            {% for hst in room %}
+            <option value="{{hst.host.id}}">{{hst.host.username}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="topic">Topic:</label>
+        <select name="topic">
+            {% for hst in room %}
+            <option value="{{hst.topic.id}}">{{hst.topic.name}}</option>
+            {% endfor %}
+        </select>
+   <h3>Room Name:</h3>     <input type="text" placeholder="Enter The Room Name" name="name" >
+        <br><br>
+   <h3>Room Description:</h3>     <textarea name="description" id="desc"></textarea>
+<br><br>
+<input type="submit" name="submit" value="Enter">
+    </form>
+</body>
+</html>

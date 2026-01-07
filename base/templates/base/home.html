@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+
+{% block title %}Home Page {% endblock %}
+
+{% block content %}
+<style>
+.main-container{
+    display:grid;
+    grid-template-columns:1fr 3fr 1fr;
+    gap:30px;
+}
+
+.Sidebar{
+    position:relative;
+}
+
+a[href="{% url 'create' %}"]{
+    display:inline-block;
+    margin:12px 0;
+    padding:10px 18px;
+    border-radius:12px;
+    background:linear-gradient(135deg, #22c55e, #16a34a);
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+    transition:all 0.2s ease;
+}
+
+a[href="{% url 'create' %}"]:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(34,197,94,0.35);
+}
+
+.card{
+    background:#ffffff;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.08);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(0,0,0,0.15);
+}
+
+.card h4{
+    font-weight:600;
+    color:#065f46;
+    margin-bottom:12px;
+}
+/* ---------- MOBILE HOME/ROOMS ---------- */
+@media (max-width: 768px) {
+    .room-card {
+        flex-direction: column;
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+    .room-card .room-info {
+        width: 100%;
+    }
+    .topics-list {
+        flex-wrap: wrap;
+    }
+    .topics-list .topic {
+        margin-bottom: 8px;
+    }
+    .messages-container {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+</style>
+
+<div class="main-container">
+    <div class="Sidebar">
+      {% include 'base/topics_component.html' %}
+    </div>
+   <div>
+      <h4>Rooms around you {{countroom}}</h4>
+      {% if request.user.is_authenticated %}
+          <a href="{% url 'create' %}">Create Form</a>
+      {% endif %}
+      <div class="card">
+          {% include 'base/feed_component.html' %}
+      </div>
+   </div>
+   <div>
+     {% include 'base/activity_comp.html' %}
+   </div>
+</div>
+{% endblock %}
